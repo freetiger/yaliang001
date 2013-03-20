@@ -1,6 +1,103 @@
 <?page title="Auto Generated index.zul"?>
-<window title="Hello World!!" border="normal" width="200px">
+<window title="雅量-世界上最为简单易用的胸围测量工具!" border="normal" width="1000px" height="700px">
 
-<label value="You are using: ${desktop.webApp.version}"/>
+	<borderlayout>
+		<north title="依据照片进行胸围测量，出示测量报告。方便你简单获得自己及朋友的胸围，不再为不知道胸围而烦恼。你可以将测量结果一键分享。" height="200px" splittable="true" collapsible="true">
+			<borderlayout>
+				<north  height="30px" maxsize="250">
+					<div  style="background:#DCEFFF" vflex="1">
+						<label style="font-size:20px" value="测量步骤：1、点击“上传测量照片”按钮上传想要测量的照片。2、分享测量结果。" />
+					</div>
+				</north>
+				<center border="none">
+					<div style="background:#DCEFFF" vflex="1">
+						<fisheyebar id="cupList" style="position:absolute;margin:1px 10px;" attachEdge="top" itemWidth="80" itemHeight="80" itemMaxHeight="100" itemMaxWidth="100">
+							<fisheye  image="/img/car1.png" label="A Cup" onClick="alert(self.label)" />
+							<fisheye  image="/img/car2.png" label="B Cup" onClick="alert(self.label)" />
+							<fisheye  image="/img/car3.png" label="C Cup" onClick="alert(self.label)" />
+							<fisheye  image="/img/car4.png" label="D Cup" onClick="alert(self.label)" />
+							<fisheye  image="/img/car5.png" label="E Cup" onClick="alert(self.label)" />
+							<fisheye  image="/img/car6.png" label="F Cup" onClick="alert(self.label)" />
+						</fisheyebar>
+					</div>
+				</center>
+			</borderlayout>
+		</north>
+		<center border="0">
+			<borderlayout>
+				<north  height="30px" maxsize="250" style="background:#DCEFFF">
+					<div>
+						<button label="上传测量照片" upload="true" >
+							<attribute name="onUpload">
+								int maxHeight = 400;
+								int maxWidth = 800;
+								org.zkoss.util.media.Media media = event.getMedia();
+								if (media instanceof org.zkoss.image.Image) {
+									org.zkoss.image.Image img = (org.zkoss.image.Image) media;
+									if (img.getWidth() > img.getHeight()){
+										if (img.getHeight() > maxHeight) {
+											pics.setHeight(maxHeight+"px");
+											pics.setWidth(img.getWidth() * maxHeight / img.getHeight() + "px");
+										}
+									}
+									if (img.getHeight() > img.getWidth()){
+										if (img.getWidth() > maxWidth) {
+											pics.setWidth(maxWidth+"px");
+											pics.setHeight(img.getHeight() * maxWidth / img.getWidth() + "px");
+										}
+									}
+									pics.setContent(img);
+								} else {
+									Messagebox.show("Not an image: "+media, "Error", Messagebox.OK, Messagebox.ERROR);
+									break; //not to show too many errors
+								}
+							</attribute>
+						</button>
+						<label style="font-size:20px" value="" /><!-- 进过雅量的专业测量，她的胸围是：A Cup -->
+					</div>
+				</north>
+				<center border="none" style="background:#DCEFFF">
+					<image id="pics" />
+				</center>
+				<south  height="30px">
+					<div style="background:#DCEFFF" vflex="1">
+						<html><![CDATA[
+							<table border="0">
+						        <tr>
+					                <td width="120px">将测量结果分享</td>
+					                <td>
+										<!-- Baidu Button BEGIN -->
+										<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+										<a class="bds_qzone"></a>
+										<a class="bds_tsina"></a>
+										<a class="bds_tqq"></a>
+										<a class="bds_renren"></a>
+										<a class="bds_t163"></a>
+										<span class="bds_more">更多</span>
+										<a class="shareCount"></a>
+										</div>
+										<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6632945" ></script>
+										<script type="text/javascript" id="bdshell_js"></script>
+										<script type="text/javascript">
+											/**
+											 * 在这里定义bds_config
+											 */
+											var bds_config = {
+												'bdDes':'您的自定义分享摘要',		//'请参考自定义分享摘要'
+												'bdText':'您的自定义分享内容',		//'请参考自定义分享内容'
+												'bdPic':'http://www.baidu.com/img/shouye_b5486898c692066bd2cbaeda86d74448.gif'	//'请参考自定义分享出去的图片'
+											}
+											document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+										</script>
+										<!-- Baidu Button END -->
+					                </td>
+						        </tr>
+							</table>
+						]]></html>
+					</div>
+				</south>
+			</borderlayout>
+		</center>
+	</borderlayout>
 
 </window>
